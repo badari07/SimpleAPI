@@ -4,10 +4,9 @@ package com.example.firstspringapi.contorller;
 import com.example.firstspringapi.model.Product;
 import com.example.firstspringapi.services.FakeSoteService;
 import com.example.firstspringapi.services.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -23,13 +22,21 @@ public class productcontroller {
     }
 
     @GetMapping(   "/{id}")
-        public Product getProductById(@PathVariable("id") Long id){
-            return productService.getProductById(id);
+        public ResponseEntity<Product> getProductById(@PathVariable("id") Long id){
+
+            Product product = productService.getProductById(id);
+
+            return ResponseEntity.status(HttpStatus.OK).body(product);
         }
 
         @GetMapping()
         public List<Product> getAllProducts() {
             return productService.getAllProducts();
+        }
+
+        @PutMapping("/{id}")
+        public Product replaceProduct(@RequestBody Product newProduct , @PathVariable("id") Long id) {
+            return productService.replaceProduct(newProduct, id);
         }
 
 
