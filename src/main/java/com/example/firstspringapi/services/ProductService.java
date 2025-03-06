@@ -9,4 +9,5 @@ public interface ProductService {
     Product getProductById(Long id) throws ProductNotFundExpection;
     List<Product> getAllProducts();
     Product replaceProduct(Product newProduct, Long id);
+    Product createProduct(Product newProduct);
 }

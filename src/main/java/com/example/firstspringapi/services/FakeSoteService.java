@@ -1,6 +1,8 @@
 package com.example.firstspringapi.services;
 
 import com.example.firstspringapi.DTO.FakeStoreDTO;
+import com.example.firstspringapi.DTO.ProductRequestDTO;
+import com.example.firstspringapi.Execptions.NoProductsFoundException;
 import com.example.firstspringapi.Execptions.ProductNotFundExpection;
 import com.example.firstspringapi.model.Catogory;
 import com.example.firstspringapi.model.Product;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Service
+@Service("fakeSoteService")
 public class FakeSoteService implements ProductService {
     private RestTemplate restTemplate;
 
@@ -29,9 +31,9 @@ public class FakeSoteService implements ProductService {
         product.setPrice(fakeStoreDTO.getPrice());
         product.setDescription(fakeStoreDTO.getDescription());
         product.setImage(fakeStoreDTO.getImage());
-        Catogory catogory = new Catogory();
-        catogory.setDescription(fakeStoreDTO.getDescription());
-        product.setCatogory(catogory);
+//        Catogory catogory = new Catogory();
+//        catogory.setDescription(fakeStoreDTO.getDescription());
+//        //product.setCatogory(catogory);
         return product;
     }
 
@@ -40,13 +42,13 @@ public class FakeSoteService implements ProductService {
 
        // int i = 1 /0 ;
 
-        FakeStoreDTO fakeStoreDTO = restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreDTO.class);
+        ProductRequestDTO response = restTemplate.getForObject("https://fakestoreapi.com/products/" + id, ProductRequestDTO.class);
         //convert FakeStoreDTO to Product
-     if(fakeStoreDTO == null) {
+     if(response == null) {
          throw new ProductNotFundExpection(id, "not found");
      }
-        return convertToProduct(fakeStoreDTO);
 
+     return response.toProduct();
     }
 
     @Override
@@ -54,11 +56,12 @@ public class FakeSoteService implements ProductService {
 
         FakeStoreDTO[] fakeStoreDTOList = restTemplate.getForObject("https://fakestoreapi.com/products", FakeStoreDTO[].class);
         //convert  list of FakeStoreDTO to  list Product
-        System.out.println("debug");
-List<Product> products = new ArrayList<>();
-        assert fakeStoreDTOList != null;
+       List<Product> products = new ArrayList<>();
+        if(fakeStoreDTOList == null) {
+            throw new NoProductsFoundException("No products found");
+        }
         for (FakeStoreDTO fakeStoreDTO : fakeStoreDTOList) {
-            products.add(convertToProduct(fakeStoreDTO));
+            products.add(fakeStoreDTO.toProduct());
         }
 
         return products;
@@ -74,10 +77,26 @@ List<Product> products = new ArrayList<>();
         fakeStoreDTO.setImage(newProduct.getImage());
         //fakeStoreDTO.setCategory(newProduct.getCatogory().getDescription());
 
+
+
         RequestCallback requestCallback = restTemplate.httpEntityCallback(newProduct, FakeStoreDTO.class);
         HttpMessageConverterExtractor<FakeStoreDTO> responseExtractor = new HttpMessageConverterExtractor<>(FakeStoreDTO.class, restTemplate.getMessageConverters());
        FakeStoreDTO res  = restTemplate.execute("https://fakestoreapi.com/products/" + id, HttpMethod.PUT, requestCallback, responseExtractor);
-        assert res != null;
-        return convertToProduct(res);
+        return res.toProduct();
+    }
+
+    @Override
+    public Product createProduct(Product newProduct) {
+        ProductRequestDTO reuest = new ProductRequestDTO();
+        reuest.setTitle(newProduct.getTitle());
+        reuest.setPrice(newProduct.getPrice());
+        reuest.setDescription(newProduct.getDescription());
+        reuest.setImage(newProduct.getImage());
+        reuest.setCategory(newProduct.getCategory());
+        FakeStoreDTO response = restTemplate.postForObject("https://fakestoreapi.com/products", reuest, FakeStoreDTO.class);
+
+        return response.toProduct();
+
+        //return null;
     }
 }
