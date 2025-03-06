@@ -1,6 +1,7 @@
 package com.example.firstspringapi.contorller;
 
 
+import com.example.firstspringapi.Execptions.ProductNotFundExpection;
 import com.example.firstspringapi.model.Product;
 import com.example.firstspringapi.services.FakeSoteService;
 import com.example.firstspringapi.services.ProductService;
@@ -22,7 +23,7 @@ public class productcontroller {
     }
 
     @GetMapping(   "/{id}")
-        public ResponseEntity<Product> getProductById(@PathVariable("id") Long id){
+        public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) throws ProductNotFundExpection {
 
             Product product = productService.getProductById(id);
 

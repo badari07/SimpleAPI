@@ -1,6 +1,7 @@
 package com.example.firstspringapi.services;
 
 import com.example.firstspringapi.DTO.FakeStoreDTO;
+import com.example.firstspringapi.Execptions.ProductNotFundExpection;
 import com.example.firstspringapi.model.Catogory;
 import com.example.firstspringapi.model.Product;
 import org.springframework.http.HttpMethod;
@@ -35,11 +36,15 @@ public class FakeSoteService implements ProductService {
     }
 
     @Override
-    public Product getProductById(Long id) {
+    public Product getProductById(Long id) throws ProductNotFundExpection {
+
+       // int i = 1 /0 ;
 
         FakeStoreDTO fakeStoreDTO = restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreDTO.class);
         //convert FakeStoreDTO to Product
-        assert fakeStoreDTO != null;
+     if(fakeStoreDTO == null) {
+         throw new ProductNotFundExpection(id, "not found");
+     }
         return convertToProduct(fakeStoreDTO);
 
     }
