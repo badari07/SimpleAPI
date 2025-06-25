@@ -1,7 +1,5 @@
 package com.example.firstspringapi.contorller;
 
-
-import com.example.firstspringapi.DTO.FakeStoreDTO;
 import com.example.firstspringapi.DTO.GetAllProductsResponseDTO;
 import com.example.firstspringapi.DTO.ProductRequestDTO;
 import com.example.firstspringapi.DTO.ProductResponeDTO;
@@ -32,12 +30,12 @@ public class productcontroller {
         }
 
         @GetMapping()
-        public ResponseEntity<GetAllProductsResponseDTO>  getAllProducts() {
+        public ResponseEntity<GetAllProductsResponseDTO> getAllProducts() {
              List<Product>products= productService.getAllProducts();
              GetAllProductsResponseDTO getAllProductsResponseDTO = new GetAllProductsResponseDTO();
-            List<FakeStoreDTO> getProductResponse = new ArrayList<>();
+            List<ProductResponeDTO> getProductResponse = new ArrayList<>();
             for (Product product : products) {
-                getProductResponse.add(FakeStoreDTO.fromProduct(product));
+                getProductResponse.add(ProductResponeDTO.fromProduct(product));
             }
 
           getAllProductsResponseDTO.setProducts(getProductResponse);
@@ -62,6 +60,8 @@ public class productcontroller {
             return new ResponseEntity<>(ProductResponeDTO.fromProduct(product) , HttpStatus.CREATED);
             //return null;
         }
+
+
 
 
 

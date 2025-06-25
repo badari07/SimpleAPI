@@ -6,5 +6,5 @@ import java.util.List;
 
 @Data
 public class GetAllProductsResponseDTO {
-    List<FakeStoreDTO> products;
+    List<ProductResponeDTO> products;
 }
