@@ -10,4 +10,5 @@ public interface ProductService {
     List<Product> getAllProducts();
     Product replaceProduct(Product newProduct, Long id);
     Product createProduct(Product newProduct);
+    Product partialUpdateProduct(Product newProduct, Long id) throws ProductNotFundExpection;
 }

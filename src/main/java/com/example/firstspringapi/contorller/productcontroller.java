@@ -19,7 +19,7 @@ import java.util.List;
 public class productcontroller {
 
     ProductService productService ;
-    productcontroller(@Qualifier("fakeSoteService") ProductService productService){
+    productcontroller(@Qualifier("ProductService2") ProductService productService){
         this.productService = productService;
     }
 
@@ -59,6 +59,14 @@ public class productcontroller {
             Product product = productService.createProduct(requestProductDTO.toProduct());
             return new ResponseEntity<>(ProductResponeDTO.fromProduct(product) , HttpStatus.CREATED);
             //return null;
+        }
+
+        @PatchMapping("/{id}")
+        public ResponseEntity<ProductResponeDTO> partialUpdateProduct(@RequestBody ProductRequestDTO newProduct , @PathVariable("id") Long id) throws ProductNotFundExpection {
+
+            Product product=  productService.partialUpdateProduct(newProduct.toProduct(), id);
+
+            return ResponseEntity.status(HttpStatus.OK).body(ProductResponeDTO.fromProduct(product));
         }
 
 

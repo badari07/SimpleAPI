@@ -3,6 +3,7 @@ package com.example.firstspringapi.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.List;

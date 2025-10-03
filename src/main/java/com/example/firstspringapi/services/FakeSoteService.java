@@ -56,7 +56,7 @@ public class FakeSoteService implements ProductService {
     @Override
     public Product replaceProduct(Product newProduct, Long id) {
 
-        ProductRequestDTO reuest = new ProductRequestDTO();
+        ProductRequestDTO reuest = new ProductRequestDTO(newProduct.getTitle(),newProduct.getPrice(),newProduct.getDescription(),newProduct.getImage(),newProduct.getCategory().getName());
         reuest.setTitle(newProduct.getTitle());
         reuest.setPrice(newProduct.getPrice());
         reuest.setDescription(newProduct.getDescription());
@@ -84,5 +84,10 @@ public class FakeSoteService implements ProductService {
         return response.toProduct();
 
 
+    }
+
+    @Override
+    public Product partialUpdateProduct(Product newProduct, Long id) {
+        return null;
     }
 }

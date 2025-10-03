@@ -1,9 +1,11 @@
 package com.example.firstspringapi.model;
 
+import jakarta.annotation.Generated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
-import lombok.Generated;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -13,6 +15,7 @@ import java.util.Date;
 @Data
 public class BaseModel {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Date createdAt;
