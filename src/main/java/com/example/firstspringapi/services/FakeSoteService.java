@@ -61,7 +61,7 @@ public class FakeSoteService implements ProductService {
         reuest.setPrice(newProduct.getPrice());
         reuest.setDescription(newProduct.getDescription());
         reuest.setImage(newProduct.getImage());
-        reuest.setCategory(newProduct.getCategory());
+        reuest.setCategory(newProduct.getCategory().getName());
 
 
 
@@ -78,7 +78,7 @@ public class FakeSoteService implements ProductService {
         reuest.setPrice(newProduct.getPrice());
         reuest.setDescription(newProduct.getDescription());
         reuest.setImage(newProduct.getImage());
-        reuest.setCategory(newProduct.getCategory());
+        reuest.setCategory(newProduct.getCategory().getName());
         ProductRequestDTO response = restTemplate.postForObject("https://fakestoreapi.com/products", reuest, ProductRequestDTO.class);
 
         return response.toProduct();

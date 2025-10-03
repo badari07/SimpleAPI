@@ -1,5 +1,6 @@
 package com.example.firstspringapi.DTO;
 
+import com.example.firstspringapi.model.Catogory;
 import com.example.firstspringapi.model.Product;
 import lombok.Data;
 
@@ -19,7 +20,9 @@ public class ProductResponeDTO {
         productResponeDTO.setPrice(product.getPrice());
         productResponeDTO.setDescription(product.getDescription());
         productResponeDTO.setImage(product.getImage());
-        productResponeDTO.setCategory(product.getCategory());
+        Catogory catogory = new Catogory();
+        catogory.setName(product.getCategory().getName());
+        productResponeDTO.setCategory(catogory.getName());
         return productResponeDTO;
     }
 }
