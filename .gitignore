@@ -1,0 +1,57 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# JetBrains / IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# VS Code
+.vscode/
+
+# Java / Maven / Gradle
+**/target/
+**/build/
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+*.class
+*.log
+hs_err_pid*
+
+# Spring Boot
+spring.log
+
+# Node / Frontend
+node_modules/
+**/dist/
+
+# Docker / Env
+.env
+.env.*
+*.env
+
+# Coverage / Reports
+**/surefire-reports/
+**/failsafe-reports/
+**/jacoco/
+
+# Other editors
+*.swp
+*.swo
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+
+# Local runtime
+.tmp/
+.cache/
+
+# OS-specific
+Thumbs.db
+Desktop.ini

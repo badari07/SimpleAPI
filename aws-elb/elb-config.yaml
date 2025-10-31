@@ -1,0 +1,49 @@
+# Amazon Elastic Load Balancing Configuration
+# This configuration defines ELB setup for microservices architecture
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: elb-config
+  namespace: ecommerce
+data:
+  # ELB Configuration
+  elb-type: "application"  # Application Load Balancer (ALB)
+  elb-scheme: "internet-facing"
+  elb-ip-address-type: "ipv4"
+  
+  # Health Check Configuration
+  health-check-protocol: "HTTP"
+  health-check-port: "traffic-port"
+  health-check-path: "/health"
+  health-check-interval: "30"
+  health-check-timeout: "5"
+  healthy-threshold: "2"
+  unhealthy-threshold: "3"
+  
+  # Load Balancing Algorithm
+  load-balancing-algorithm: "round_robin"
+  
+  # SSL/TLS Configuration
+  ssl-certificate-arn: "arn:aws:acm:us-east-1:123456789012:certificate/your-cert-id"
+  ssl-policy: "ELBSecurityPolicy-TLS-1-2-2017-01"
+  
+  # Target Groups Configuration
+  target-group-protocol: "HTTP"
+  target-group-port: "80"
+  target-group-health-check-path: "/health"
+  target-group-health-check-interval: "30"
+  target-group-health-check-timeout: "5"
+  target-group-healthy-threshold: "2"
+  target-group-unhealthy-threshold: "3"
+  
+  # Auto Scaling Configuration
+  min-capacity: "2"
+  max-capacity: "10"
+  desired-capacity: "3"
+  scale-up-cooldown: "300"
+  scale-down-cooldown: "300"
+  
+  # CloudWatch Metrics
+  cloudwatch-metrics: "true"
+  detailed-monitoring: "true"
