@@ -1,7 +1,6 @@
 package com.example.firstspringapi.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -12,15 +11,21 @@ import java.util.List;
 @Setter
 @Entity
 public class Catogory extends BaseModel{
+    @Column(name = "Category_name", unique = true)
     private String name;
 
+    @Basic(fetch = FetchType.LAZY)
     private String description;
 
-    @OneToMany
+    @OneToMany(fetch = jakarta.persistence.FetchType.EAGER)
     private List<Product> futureProducts;
 
     @OneToMany(mappedBy = "category")
     private List<Product> allProduct;
+
+    @ManyToOne
+    private Subcategory subcategory;
+
 
 
 
