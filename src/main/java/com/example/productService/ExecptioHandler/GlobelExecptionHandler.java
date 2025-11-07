@@ -1,8 +1,8 @@
-package com.example.firstspringapi.ExecptioHandler;
+package com.example.productService.ExecptioHandler;
 
-import com.example.firstspringapi.DTO.ExecptionDTO;
-import com.example.firstspringapi.DTO.ProductNotFundExpectionDTO;
-import com.example.firstspringapi.Execptions.ProductNotFundExpection;
+import com.example.productService.DTO.ExecptionDTO;
+import com.example.productService.DTO.ProductNotFundExpectionDTO;
+import com.example.productService.Execptions.ProductNotFundExpection;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

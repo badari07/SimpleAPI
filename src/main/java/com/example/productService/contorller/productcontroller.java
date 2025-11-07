@@ -1,11 +1,11 @@
-package com.example.firstspringapi.contorller;
+package com.example.productService.contorller;
 
-import com.example.firstspringapi.DTO.GetAllProductsResponseDTO;
-import com.example.firstspringapi.DTO.ProductRequestDTO;
-import com.example.firstspringapi.DTO.ProductResponeDTO;
-import com.example.firstspringapi.Execptions.ProductNotFundExpection;
-import com.example.firstspringapi.model.Product;
-import com.example.firstspringapi.services.ProductService;
+import com.example.productService.DTO.GetAllProductsResponseDTO;
+import com.example.productService.DTO.ProductRequestDTO;
+import com.example.productService.DTO.ProductResponeDTO;
+import com.example.productService.Execptions.ProductNotFundExpection;
+import com.example.productService.model.Product;
+import com.example.productService.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

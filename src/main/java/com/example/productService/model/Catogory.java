@@ -1,8 +1,7 @@
-package com.example.firstspringapi.model;
+package com.example.productService.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.List;

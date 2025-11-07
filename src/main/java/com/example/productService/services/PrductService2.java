@@ -1,10 +1,10 @@
-package com.example.firstspringapi.services;
+package com.example.productService.services;
 
-import com.example.firstspringapi.Execptions.ProductNotFundExpection;
-import com.example.firstspringapi.model.Catogory;
-import com.example.firstspringapi.model.Product;
-import com.example.firstspringapi.repositories.CategoryRepository;
-import com.example.firstspringapi.repositories.ProductRepository;
+import com.example.productService.Execptions.ProductNotFundExpection;
+import com.example.productService.model.Catogory;
+import com.example.productService.model.Product;
+import com.example.productService.repositories.CategoryRepository;
+import com.example.productService.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

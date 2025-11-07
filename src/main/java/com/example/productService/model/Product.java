@@ -1,9 +1,8 @@
-package com.example.firstspringapi.model;
+package com.example.productService.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 @Getter

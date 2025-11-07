@@ -1,4 +1,4 @@
-package com.example.firstspringapi.DTO;
+package com.example.productService.DTO;
 
 
 import lombok.Data;

@@ -1,12 +1,10 @@
-package com.example.firstspringapi.model;
+package com.example.productService.model;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 

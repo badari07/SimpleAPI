@@ -1,10 +1,10 @@
-package com.example.firstspringapi.services;
+package com.example.productService.services;
 
 
-import com.example.firstspringapi.DTO.ProductRequestDTO;
-import com.example.firstspringapi.Execptions.NoProductsFoundException;
-import com.example.firstspringapi.Execptions.ProductNotFundExpection;
-import com.example.firstspringapi.model.Product;
+import com.example.productService.DTO.ProductRequestDTO;
+import com.example.productService.Execptions.NoProductsFoundException;
+import com.example.productService.Execptions.ProductNotFundExpection;
+import com.example.productService.model.Product;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpMessageConverterExtractor;

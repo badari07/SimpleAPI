@@ -1,4 +1,4 @@
-package com.example.firstspringapi.model;
+package com.example.productService.model;
 
 
 import jakarta.persistence.Entity;

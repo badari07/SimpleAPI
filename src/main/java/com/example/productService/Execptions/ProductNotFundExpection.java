@@ -1,4 +1,4 @@
-package com.example.firstspringapi.Execptions;
+package com.example.productService.Execptions;
 
 import lombok.Data;
 

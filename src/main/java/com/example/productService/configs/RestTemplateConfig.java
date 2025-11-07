@@ -1,4 +1,4 @@
-package com.example.firstspringapi.configs;
+package com.example.productService.configs;
 
 
 import org.springframework.boot.web.client.RestTemplateBuilder;

@@ -1,7 +1,7 @@
-package com.example.firstspringapi.services;
+package com.example.productService.services;
 
-import com.example.firstspringapi.Execptions.ProductNotFundExpection;
-import com.example.firstspringapi.model.Product;
+import com.example.productService.Execptions.ProductNotFundExpection;
+import com.example.productService.model.Product;
 
 import java.util.List;
 

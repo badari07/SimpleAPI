@@ -1,7 +1,7 @@
-package com.example.firstspringapi.DTO;
+package com.example.productService.DTO;
 
-import com.example.firstspringapi.model.Catogory;
-import com.example.firstspringapi.model.Product;
+import com.example.productService.model.Catogory;
+import com.example.productService.model.Product;
 import lombok.Data;
 
 @Data
