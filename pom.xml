@@ -87,6 +87,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
+                    <release>${java.version}</release>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.springframework.boot</groupId>
@@ -109,6 +110,8 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    <!-- Explicit main class to avoid auto-detection issues during repackaging -->
+                    <mainClass>com.example.productService.FirstspringApiApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
