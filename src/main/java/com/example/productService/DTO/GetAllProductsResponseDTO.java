@@ -1,10 +1,9 @@
 package com.example.productService.DTO;
 
 import lombok.Data;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 @Data
 public class GetAllProductsResponseDTO {
-    List<ProductResponeDTO> products;
+    private Page<ProductResponeDTO> products;
 }

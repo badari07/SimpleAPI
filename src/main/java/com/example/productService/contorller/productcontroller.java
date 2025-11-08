@@ -7,6 +7,8 @@ import com.example.productService.Execptions.ProductNotFundExpection;
 import com.example.productService.model.Product;
 import com.example.productService.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,13 +34,14 @@ public class productcontroller {
         @GetMapping()
         public ResponseEntity<GetAllProductsResponseDTO> getAllProducts() {
              List<Product>products= productService.getAllProducts();
-             GetAllProductsResponseDTO getAllProductsResponseDTO = new GetAllProductsResponseDTO();
+            GetAllProductsResponseDTO getAllProductsResponseDTO = new GetAllProductsResponseDTO();
             List<ProductResponeDTO> getProductResponse = new ArrayList<>();
             for (Product product : products) {
                 getProductResponse.add(ProductResponeDTO.fromProduct(product));
             }
+            Page<ProductResponeDTO> productPage = new PageImpl<>(getProductResponse);
 
-          getAllProductsResponseDTO.setProducts(getProductResponse);
+            getAllProductsResponseDTO.setProducts(productPage);
 
             return ResponseEntity.status(HttpStatus.OK).body(getAllProductsResponseDTO);
 
