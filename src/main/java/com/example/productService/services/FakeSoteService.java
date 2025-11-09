@@ -10,6 +10,7 @@ import com.example.productService.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpMessageConverterExtractor;
@@ -28,8 +29,12 @@ import java.util.stream.Collectors;
 @Service("fakeSoteService")
 public class FakeSoteService implements ProductService {
     private RestTemplate restTemplate;
+    private RedisTemplate<String,Object> redisTemplate;
 
-    FakeSoteService(RestTemplate restTemplate) {
+
+
+    FakeSoteService(RestTemplate restTemplate, RedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
         this.restTemplate = restTemplate;
     }
 
@@ -38,13 +43,24 @@ public class FakeSoteService implements ProductService {
 
        // int i = 1 /0 ;
 
+        Product product = (Product) redisTemplate.opsForHash().get("PRODUCTS", "PRODUCTS_" + id);
+        if (product != null) {
+            return product;
+        }
+
+        //call fake store api
         ProductRequestDTO response = restTemplate.getForObject("https://fakestoreapi.com/products/" + id, ProductRequestDTO.class);
         //convert FakeStoreDTO to Product
      if(response == null) {
          throw new ProductNotFundExpection(id, "not found");
      }
 
-     return response.toProduct();
+
+     Product prod = response.toProduct();
+        //store in redis
+        redisTemplate.opsForHash().put("PRODUCTS", "PRODUCTS_" + prod.getId(), prod);
+
+     return prod;
     }
 
     @Override

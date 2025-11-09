@@ -7,9 +7,11 @@ import com.example.productService.model.Catogory;
 import com.example.productService.model.Product;
 import com.example.productService.repositories.CategoryRepository;
 import com.example.productService.repositories.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -27,6 +29,9 @@ public class PrductService2 implements ProductService {
     private ProductRepository productRepository;
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+
     public PrductService2(ProductRepository productRepository, CategoryRepository categoryRepository ) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
@@ -36,11 +41,28 @@ public class PrductService2 implements ProductService {
     @Override
     public Product getProductById(Long id) throws ProductNotFundExpection {
 
-            Optional<Product> product = productRepository.findById(id);
-            if(product.isEmpty()) {
-                throw new ProductNotFundExpection(id, "not found");
+        // Try to read from Redis cache first (optional)
+        try {
+            Object cached = redisTemplate.opsForHash().get("PRODUCTS", "PRODUCTS_" + id);
+            if (cached instanceof Product) {
+                return (Product) cached;
             }
-            return product.get();
+        } catch (Exception ignored) {
+            // Redis may not be available in all environments; ignore caching errors
+        }
+
+
+        // Fetch from DB and unwrap Optional safely
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFundExpection(id, "not found"));
+
+        // Cache in Redis (if available) using the product id as part of the key
+        try {
+            redisTemplate.opsForHash().put("PRODUCTS", "PRODUCTS_" + product.getId(), product);
+        } catch (Exception ignored) {
+        }
+
+        return product;
     }
 
     @Override
