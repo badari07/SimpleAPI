@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +21,11 @@ import java.util.List;
 @RequestMapping("/products")
 public class productcontroller {
 
-    ProductService productService ;
-    productcontroller(@Qualifier("ProductService2") ProductService productService){
+   private final ProductService productService ;
+   private final  RestTemplate restTemplate;
+    productcontroller(@Qualifier("ProductService2") ProductService productService,RestTemplate restTemplate) {
         this.productService = productService;
+        this.restTemplate = restTemplate;
     }
 
     @GetMapping(   "/{id}")
@@ -57,8 +60,20 @@ public class productcontroller {
         }
 
         @PostMapping()
-        public ResponseEntity<ProductResponeDTO> createProduct(@RequestBody ProductRequestDTO requestProductDTO) {
+        public ResponseEntity<ProductResponeDTO> createProduct(@RequestHeader("Authorization") String token , @RequestBody ProductRequestDTO requestProductDTO) {
 
+
+            boolean isAuthicated= Boolean.TRUE.equals(
+                    restTemplate.postForObject(
+                            "http://userService/auth/validate",
+                            java.util.Map.of("token", token),
+                            Boolean.class
+                    )
+            );
+
+       if(!isAuthicated){
+           return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+       }
             Product product = productService.createProduct(requestProductDTO.toProduct());
             return new ResponseEntity<>(ProductResponeDTO.fromProduct(product) , HttpStatus.CREATED);
             //return null;
