@@ -1,4 +1,4 @@
-# FirstspringAPI
+# ProductService
 
 Spring Boot service that manages products, categories, and search for an e-commerce scenario. The project demonstrates:
 
